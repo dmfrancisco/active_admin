@@ -147,9 +147,9 @@ module ActiveAdmin
       class IndexTableFor < ::ActiveAdmin::Views::TableFor
 
         # Display a column for checkbox
-        def selectable_column
+        def selectable_column(&block)
           return unless active_admin_config.batch_actions.any?
-          column( resource_selection_toggle_cell, { :class => "selectable" } ) { |resource| resource_selection_cell( resource ) }
+          column( resource_selection_toggle_cell, { :class => "selectable" } ) { |resource| resource_selection_cell( resource, &block ) }
         end
 
         # Display a column for the id

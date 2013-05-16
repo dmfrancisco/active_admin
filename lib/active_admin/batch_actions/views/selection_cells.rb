@@ -16,8 +16,18 @@ module ActiveAdmin
     class ResourceSelectionCell < ActiveAdmin::Component
       builder_method :resource_selection_cell
 
-      def build(resource)
-        input :type => "checkbox", :id => "batch_action_item_#{resource.id}", :value => resource.id, :class => "collection_selection", :name => "collection_selection[]"
+      def build(resource, &block)
+        selection_cell = block_given? ? yield(resource) : nil
+        selection_cell = input unless selection_cell.is_a? Arbre::HTML::Input
+        {
+          :type  => "checkbox",
+          :id    => "batch_action_item_#{ resource.id }",
+          :value => resource.id,
+          :class => "collection_selection",
+          :name  => "collection_selection[]"
+        }.each do |key, value|
+          selection_cell.set_attribute(key, value)
+        end
       end
     end
 
