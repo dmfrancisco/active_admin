@@ -56,7 +56,7 @@ module ActiveAdmin
       # Helper method to render a filter form
       def active_admin_filters_form_for(search, filters, options = {})
         defaults = { :builder => ActiveAdmin::Filters::FormBuilder,
-                     :url     => collection_path,
+                     :url     => request.path,
                      :html    => {:class  => 'filter_form'} }
         required = { :html    => {:method => :get},
                      :as      => :q }
@@ -76,7 +76,7 @@ module ActiveAdmin
           buttons = content_tag :div, :class => "buttons" do
             f.submit(I18n.t('active_admin.filter')) +
               link_to(I18n.t('active_admin.clear_filters'), "#", :class => "clear_filters_btn") +
-              hidden_field_tags_for(params, :except => [:q, :page])
+              hidden_field_tags_for(params, :except => request.path_parameters.keys + [:q, :page])
           end
 
           f.form_buffers.last + buttons
