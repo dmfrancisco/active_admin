@@ -16,7 +16,7 @@ window.AA.CheckboxToggler = class AA.CheckboxToggler
     else
       @toggle_all_checkbox = @$container.find '.toggle_all'
 
-    @checkboxes = @$container.find(':checkbox').not @toggle_all_checkbox
+    @checkboxes = @$container.find(':checkbox').not(':disabled').not @toggle_all_checkbox
 
   _bind: ->
     @checkboxes.change       (e)=> @_didChangeCheckbox e.target
