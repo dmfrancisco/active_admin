@@ -16,6 +16,10 @@ module ActiveAdmin
         text_node form_tag(active_admin_config.batch_action_path(params), :id => options[:id])
         input(:name => :batch_action, :id => :batch_action, :type => :hidden)
 
+        params.except(:controller, :batch_action).each do |k,v|
+          input(:name => k, :value => v, :type => :hidden)
+        end
+
         super(options)
       end
 
